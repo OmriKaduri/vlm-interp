@@ -1,4 +1,8 @@
-## Install Environment for Llava Knockout Experiments
+# What’s in the Image? A Deep-Dive into the Vision of Vision Language Models (CVPR 2025)
+
+This repo contains the code for Llava-1.5-7B experiments on MME from the paper [What’s in the Image? A Deep-Dive into the Vision of Vision Language Models](https://vision-of-vlm.github.io/).
+
+## 🧪 Install Environment for LLaVA Knockout Experiments
 1. Create and activate a conda environment:
    ```bash
    conda create -n llavako python=3.10 -y && conda activate llavako
@@ -16,7 +20,7 @@
    ./update_local_env_llava.sh
    ```
 
-## Running LLaVA on MME
+## 🦙 Running LLaVA on MME
 
 ### Data Preparation:
 1. Download the required datasets from [Awesome-Multimodal-Large-Language-Models Evaluation](https://github.com/BradyFU/Awesome-Multimodal-Large-Language-Models/tree/Evaluation).
@@ -45,22 +49,22 @@ Example:
 PYTHONPATH=. python llava_on_mme_runner.py --mme_data_folder PATH_TO_FOLDER/MME_Benchmark_release_version --mme_results_folder PATH_TO_MME_RESULTS_FOLDER --ks 0.02 0.05
 ```
 
-### Results
-
-Run: 
+Then, to calculate results over all MME subsets, run:
 ```bash
 python mllm/eval/mme/calculate.py --results_dir PATH_TO_MME_RESULTS_FOLDER
 ```
+And you would see in the command line the metrics, per MME subset.
+
 ---
 
-# Visualize relative attention by token type
+## 🔍 Visualize relative attention by token type
 Specify the model name and path to the processed data directory as the first argument. For example, for LLaVA, on MME existence subset (a folder named "llava_existence_results" should be generated from previous part):
 
 ``` PYTHONPATH=. python mllm/visualizations/plot_relative_attention_by_token_type.py PATH_TO_MME_RESULTS_FOLDER/llava_existence_results/ llava-1.5-7b```
 
 Look under: `visualizations/output` for `.pdf` file with the attention visualized across layers.
 
-# LLM-as-a-judge
+## 🤖 LLM-as-a-judge
 Now that we have the results on MME for all variants (2%, 5%, full model), we want to evaluate using LLM-as-a-judge their relative impact.
 
 run the script: ```mllm/eval/gpt4_eval_cot.py``` with specifying the path to the processed data directory as the first argument.
@@ -75,3 +79,18 @@ Note that: PATH_TO_MME_RESULTS_FOLDER/LLAVA_SUBSET_FOLDER should be,a s before, 
  
 Results are saved into: ``mllm/eval/output/gpt4eval_objects_{model_name}_with_scores.csv``
 
+
+## 📚 Citation
+
+If you find our work helpful, please consider citing:
+
+```bibtex
+@misc{kaduri2024_vision_of_vlms,
+      title={What's in the Image? A Deep-Dive into the Vision of Vision Language Models}, 
+      author={Omri Kaduri and Shai Bagon and Tali Dekel},
+      year={2024},
+      eprint={2411.17491},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2411.17491}, 
+}
